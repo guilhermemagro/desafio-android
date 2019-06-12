@@ -79,7 +79,7 @@ public class InscricaoEventoActivity extends AppCompatActivity {
         edtTelefone = findViewById(R.id.edtIETelefone);
         swConhece = findViewById(R.id.swIEConhecimento);
         btnCadastrar = findViewById(R.id.btnIECadastrar);
-        edtTelefone.addTextChangedListener(Mask.insert("(##)#####-####", edtTelefone));
+        edtTelefone.addTextChangedListener(Mask.insert("(##)#########", edtTelefone));
 
         edtNome.addTextChangedListener(textWatcher);
         edtEmail.addTextChangedListener(textWatcher);

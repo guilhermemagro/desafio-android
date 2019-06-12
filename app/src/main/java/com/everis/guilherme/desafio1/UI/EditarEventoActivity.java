@@ -137,9 +137,12 @@ public class EditarEventoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
-                int ano = cal.get(Calendar.YEAR);
-                int mes = cal.get(Calendar.MONTH);
-                int dia = cal.get(Calendar.DAY_OF_MONTH);
+                int ano = Integer.parseInt(String.valueOf(editarData.getText()).substring(6));
+                int mes = Integer.parseInt(String.valueOf(editarData.getText()).substring(3, 5)) - 1;
+                int dia = Integer.parseInt(String.valueOf(editarData.getText()).substring(0, 2));
+//                int ano = cal.get(Calendar.YEAR);
+//                int mes = cal.get(Calendar.MONTH);
+//                int dia = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
                         EditarEventoActivity.this,
@@ -155,7 +158,7 @@ public class EditarEventoActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month += 1;
-                String data = dayOfMonth + "/" + month + "/" + year;
+                String data = String.format("%02d", dayOfMonth) + "/" + String.format("%02d", month) + "/" + year;
                 editarData.setText(data);
             }
         };
@@ -164,8 +167,10 @@ public class EditarEventoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
+                int hour = Integer.parseInt(String.valueOf(editarHora.getText()).substring(0, 2));
+                int minute = Integer.parseInt(String.valueOf(editarHora.getText()).substring(3));
+//                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+//                int minute = mcurrentTime.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(EditarEventoActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override

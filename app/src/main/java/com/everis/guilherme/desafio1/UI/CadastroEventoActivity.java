@@ -121,7 +121,7 @@ public class CadastroEventoActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month += 1;
-                String data = dayOfMonth + "/" + month + "/" + year;
+                String data = String.format("%02d", dayOfMonth) + "/" + String.format("%02d", month) + "/" + year;
                 txtCEData.setText(data);
             }
         };
@@ -131,7 +131,7 @@ public class CadastroEventoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
+                int minute = 0;
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(CadastroEventoActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
