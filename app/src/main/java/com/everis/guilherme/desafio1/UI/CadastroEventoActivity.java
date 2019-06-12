@@ -1,23 +1,27 @@
 package com.everis.guilherme.desafio1.UI;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.everis.guilherme.desafio1.DAO.EventoDAO;
 import com.everis.guilherme.desafio1.Domain.Evento;
-import com.everis.guilherme.desafio1.Mask.Mask;
 import com.everis.guilherme.desafio1.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CadastroEventoActivity extends AppCompatActivity {
@@ -28,10 +32,43 @@ public class CadastroEventoActivity extends AppCompatActivity {
     EditText edtCECidade;
     EditText edtCELocal;
     TextView txtCEData;
-    EditText edtCEHora;
+    TextView txtCEHoraPicker;
     EditText edtCEVagas;
     private long idUsuarioAtivo;
     DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            checarCamposVazios();
+        }
+    };
+
+    private void checarCamposVazios(){
+        String sEvento = edtCEEvento.getText().toString();
+        String sCidade = edtCECidade.getText().toString();
+        String sLocal = edtCELocal.getText().toString();
+        String sData = txtCEData.getText().toString();
+        String sHora = txtCEHoraPicker.getText().toString();
+        String sVagas = edtCEVagas.getText().toString();
+
+        if(sEvento.equals("") || sCidade.equals("") || sLocal.equals("") ||
+            sData.equals("") || sHora.equals("") || sVagas.equals("")){
+            btnCECadastrar.setEnabled(false);
+            btnCECadastrar.setAlpha(.5f);
+        } else {
+            btnCECadastrar.setEnabled(true);
+            btnCECadastrar.setAlpha(1.0f);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +84,20 @@ public class CadastroEventoActivity extends AppCompatActivity {
         edtCECidade = findViewById(R.id.edtCECidade);
         edtCELocal = findViewById(R.id.edtCELocal);
         txtCEData = findViewById(R.id.txtCEDataPicker);
-        edtCEHora = findViewById(R.id.edtCEHora);
+        txtCEHoraPicker = findViewById(R.id.txtCEHoraPicker);
         edtCEVagas = findViewById(R.id.edtCEVagas);
         btnCECadastrar = findViewById(R.id.btnCECadastrar);
         btnCECancelar = findViewById(R.id.btnCECancelar);
 
-        edtCEHora.addTextChangedListener(Mask.insert("##:##", edtCEHora));
+        edtCEEvento.addTextChangedListener(textWatcher);
+        edtCECidade.addTextChangedListener(textWatcher);
+        edtCELocal.addTextChangedListener(textWatcher);
+        txtCEData.addTextChangedListener(textWatcher);
+        txtCEHoraPicker.addTextChangedListener(textWatcher);
+        edtCEVagas.addTextChangedListener(textWatcher);
+
+        btnCECadastrar.setEnabled(false);
+        btnCECadastrar.setAlpha(.5f);
 
         txtCEData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +126,24 @@ public class CadastroEventoActivity extends AppCompatActivity {
             }
         };
 
+        txtCEHoraPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(CadastroEventoActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String strHora = selectedHour + ":" + String.format("%02d", selectedMinute);
+                        txtCEHoraPicker.setText(strHora);
+                    }
+                }, hour, minute, true);
+                mTimePicker.show();
+            }
+        });
+
         btnCECancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,16 +163,15 @@ public class CadastroEventoActivity extends AppCompatActivity {
                 String local = edtCELocal.getText().toString();
                 String[] string = txtCEData.getText().toString().split("/");
                 String dataFormatada = string[2] + "-" + string[1] + "-" + string[0];
-                String hora = edtCEHora.getText().toString();
+                String hora = txtCEHoraPicker.getText().toString();
                 int vagas = Integer.parseInt(edtCEVagas.getText().toString());
                 int imagem = R.drawable.logo_everis; // HARDCODED!!!!
-
                 evento = new Evento(nomeEvento, local, cidade, dataFormatada, hora, imagem, vagas, idUsuarioAtivo);
 
                 if(eventoDAO.salvar(evento)){
-                    Toast.makeText(getApplicationContext(), "EVENTO CADASTRADO!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Evento cadastrado!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "EVENTO NÃO FOI CADASTRADO!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Evento não foi cadastrado!", Toast.LENGTH_SHORT).show();
                 }
 
                 Intent intent = new Intent(CadastroEventoActivity.this, ListActivity.class);

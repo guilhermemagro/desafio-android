@@ -1,20 +1,31 @@
 package com.everis.guilherme.desafio1.UI;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.everis.guilherme.desafio1.DAO.EventoDAO;
 import com.everis.guilherme.desafio1.DAO.RegistroDAO;
 import com.everis.guilherme.desafio1.Domain.Evento;
+import com.everis.guilherme.desafio1.Mask.Mask;
 import com.everis.guilherme.desafio1.R;
+
+import java.util.Calendar;
 
 public class EditarEventoActivity extends AppCompatActivity {
 
@@ -25,8 +36,8 @@ public class EditarEventoActivity extends AppCompatActivity {
     EditText editarNome;
     EditText editarCidade;
     EditText editarLocal;
-    EditText editarData;
-    EditText editarHora;
+    TextView editarData;
+    TextView editarHora;
     EditText editarVagas;
     Button btnCancelar;
     Button btnEditar;
@@ -36,25 +47,66 @@ public class EditarEventoActivity extends AppCompatActivity {
     EventoDAO eventoDAO;
     Evento eventoSelec;
     AlertDialog alerta;
+    DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            checarCamposVazios();
+        }
+    };
+
+    private void checarCamposVazios(){
+        String sEvento = editarNome.getText().toString();
+        String sCidade = editarCidade.getText().toString();
+        String sLocal = editarLocal.getText().toString();
+        String sData = editarHora.getText().toString();
+        String sHora = editarHora.getText().toString();
+        String sVagas = editarVagas.getText().toString();
+
+        if(sEvento.equals("") || sCidade.equals("") || sLocal.equals("") ||
+                sData.equals("") || sHora.equals("") || sVagas.equals("")){
+            btnEditar.setEnabled(false);
+            btnEditar.setAlpha(.5f);
+        } else {
+            btnEditar.setEnabled(true);
+            btnEditar.setAlpha(1.0f);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_evento);
 
-        txtNomeEvento = (TextView) findViewById(R.id.txtEENomeEvento);
-        txtCidadeEData = (TextView) findViewById(R.id.txtEECidadeEData);
-        txtLocalEHorario = (TextView) findViewById(R.id.txtEELocalEHorario);
-        txtQtdVagas = (TextView) findViewById(R.id.txtEEQtdVagas);
-        editarNome = (EditText) findViewById(R.id.edtEEEvento);
-        editarCidade = (EditText) findViewById(R.id.edtEECidade);
-        editarLocal = (EditText) findViewById(R.id.edtEELocal);
-        editarData = (EditText) findViewById(R.id.edtEEData);
-        editarHora = (EditText) findViewById(R.id.edtEEHora);
-        editarVagas = (EditText) findViewById(R.id.edtEEVagas);
-        btnCancelar = (Button) findViewById(R.id.btnEECancelar);
-        btnEditar = (Button) findViewById(R.id.btnEEEditar);
-        btnDeletar = (Button) findViewById(R.id.btnEEDeletarEvento);
+        txtNomeEvento = findViewById(R.id.txtEENomeEvento);
+        txtCidadeEData = findViewById(R.id.txtEECidadeEData);
+        txtLocalEHorario = findViewById(R.id.txtEELocalEHorario);
+        txtQtdVagas = findViewById(R.id.txtEEQtdVagas);
+        editarNome = findViewById(R.id.edtEEEvento);
+        editarCidade = findViewById(R.id.edtEECidade);
+        editarLocal = findViewById(R.id.edtEELocal);
+        editarData = findViewById(R.id.txtEEDataPicker);
+        editarHora = findViewById(R.id.txtEEHoraPicker);
+        editarVagas = findViewById(R.id.edtEEVagas);
+        btnCancelar = findViewById(R.id.btnEECancelar);
+        btnEditar = findViewById(R.id.btnEEEditar);
+        btnDeletar = findViewById(R.id.btnEEDeletarEvento);
+
+        editarNome.addTextChangedListener(textWatcher);
+        editarCidade.addTextChangedListener(textWatcher);
+        editarLocal.addTextChangedListener(textWatcher);
+        editarData.addTextChangedListener(textWatcher);
+        editarHora.addTextChangedListener(textWatcher);
+        editarVagas.addTextChangedListener(textWatcher);
 
         eventoDAO = new EventoDAO(getBaseContext());
         registroDAO = new RegistroDAO(getBaseContext());
@@ -80,6 +132,51 @@ public class EditarEventoActivity extends AppCompatActivity {
         txtCidadeEData.setText(strCidadeEData);
         txtLocalEHorario.setText(strLocalEHorario);
         txtQtdVagas.setText(strQtdVagas);
+
+        editarData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int ano = cal.get(Calendar.YEAR);
+                int mes = cal.get(Calendar.MONTH);
+                int dia = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        EditarEventoActivity.this,
+                        R.style.Theme_AppCompat_Light_Dialog,
+                        mDateSetListener,
+                        ano, mes, dia);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                dialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month += 1;
+                String data = dayOfMonth + "/" + month + "/" + year;
+                editarData.setText(data);
+            }
+        };
+
+        editarHora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(EditarEventoActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String strHora = selectedHour + ":" + String.format("%02d", selectedMinute);
+                        editarHora.setText(strHora);
+                    }
+                }, hour, minute, true);
+                mTimePicker.show();
+            }
+        });
 
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override

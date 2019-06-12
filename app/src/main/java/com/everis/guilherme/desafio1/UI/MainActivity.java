@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(!usuarioDAO.verificarSeUsuarioExiste(email)){
                     usuarioDAO.salvar(usuario);
-                    Toast.makeText(getApplicationContext(), "NOVO USUARIO CADASTRADO!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Novo usuário cadastrado!", Toast.LENGTH_LONG).show();
                 }
 
                 usuario = usuarioDAO.buscarPorEmail(email);

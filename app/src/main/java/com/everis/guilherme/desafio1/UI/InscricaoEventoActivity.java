@@ -3,6 +3,8 @@ package com.everis.guilherme.desafio1.UI;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +32,35 @@ public class InscricaoEventoActivity extends AppCompatActivity {
     Button btnCadastrar;
     long idUsuarioAtivo;
 
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            checarCamposVazios();
+        }
+    };
+
+    private void checarCamposVazios(){
+        String sNome = edtNome.getText().toString();
+        String sEmail = edtEmail.getText().toString();
+        String sTelefone = edtTelefone.getText().toString();
+
+        if(sNome.equals("") || sEmail.equals("") || sTelefone.equals("")){
+            btnCadastrar.setEnabled(false);
+            btnCadastrar.setAlpha(.5f);
+        } else {
+            btnCadastrar.setEnabled(true);
+            btnCadastrar.setAlpha(1.0f);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +74,19 @@ public class InscricaoEventoActivity extends AppCompatActivity {
         txtCidadeEData = findViewById(R.id.txtIECidadeEData);
         txtLocalEHorario = findViewById(R.id.txtIELocalEHorario);
         qntdVagas = findViewById(R.id.txtIEQtdVagas);
+        edtNome = findViewById(R.id.edtIENome);
+        edtEmail = findViewById(R.id.edtIEEmail);
+        edtTelefone = findViewById(R.id.edtIETelefone);
+        swConhece = findViewById(R.id.swIEConhecimento);
+        btnCadastrar = findViewById(R.id.btnIECadastrar);
+        edtTelefone.addTextChangedListener(Mask.insert("(##)#####-####", edtTelefone));
+
+        edtNome.addTextChangedListener(textWatcher);
+        edtEmail.addTextChangedListener(textWatcher);
+        edtTelefone.addTextChangedListener(textWatcher);
+
+        btnCadastrar.setEnabled(false);
+        btnCadastrar.setAlpha(.5f);
 
         String cidadeEData = evento.getCidade() + " - " + evento.getData();
         String localEHorario = evento.getLocal() + " - " + evento.getHorario();
@@ -65,13 +109,6 @@ public class InscricaoEventoActivity extends AppCompatActivity {
         final ParticipanteDAO participanteDAO = new ParticipanteDAO(getBaseContext());
         final RegistroDAO registroDAO = new RegistroDAO(getBaseContext());
 
-        edtNome = findViewById(R.id.edtIENome);
-        edtEmail = findViewById(R.id.edtIEEmail);
-        edtTelefone = findViewById(R.id.edtIETelefone);
-        swConhece = findViewById(R.id.swIEConhecimento);
-        edtTelefone.addTextChangedListener(Mask.insert("(##)#####-####", edtTelefone));
-
-        btnCadastrar = findViewById(R.id.btnIECadastrar);
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,9 +125,9 @@ public class InscricaoEventoActivity extends AppCompatActivity {
 
                 Registro registro = new Registro(evento.getId(), participanteDAO.buscarIdPorEmail(email));
                 if(registroDAO.salvar(registro)){
-                    Toast.makeText(getApplicationContext(), "PARTICIPANTE REGISTRADO!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Participante registrado!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "PARTICIPANTE NÃO FOI REGISTRADO!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Participante não foi registrado!", Toast.LENGTH_SHORT).show();
                 }
 
                 Intent intent = new Intent(InscricaoEventoActivity.this, ListActivity.class);

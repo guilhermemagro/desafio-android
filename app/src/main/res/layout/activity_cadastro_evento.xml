@@ -92,9 +92,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:ems="10"
-                android:text="@string/ce_data_do_evento"
+                android:hint="@string/ce_data_do_evento"
                 android:textSize="18sp" />
 
             <View
@@ -112,18 +113,26 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/ce_horario" />
 
-            <EditText
-                android:id="@+id/edtCEHora"
+            <TextView
+                android:id="@+id/txtCEHoraPicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:ems="10"
                 android:hint="@string/ce_horario_do_evento"
-                android:inputType="time" />
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="14dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
 
             <TextView
-                android:id="@+id/txtEEVagas"
+                android:id="@+id/txtCEVagas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
