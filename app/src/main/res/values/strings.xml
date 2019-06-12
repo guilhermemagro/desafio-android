@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Everis Events</string>
+
+    <string name="ce_evento">Evento</string>
+    <string name="ce_nome_do_evento">Nome do evento</string>
+    <string name="ce_cidade">Cidade</string>
+    <string name="ce_cidade_do_evento">Cidade do evento</string>
+    <string name="ce_local">Local</string>
+    <string name="ce_local_do_evento">Local do evento</string>
+    <string name="ce_data">Data</string>
+    <string name="ce_data_do_evento">dd/mm/aaaa</string>
+    <string name="ce_horario">Horário</string>
+    <string name="ce_horario_do_evento">--:--</string>
+    <string name="ce_cancelar">Cancelar</string>
+    <string name="ce_cadastrar">Cadastrar</string>
+    <string name="ce_vagas">Vagas</string>
+    <string name="ce_total_de_vagas">Total de vagas</string>
+
+    <string name="ee_evento">Editar Evento</string>
+    <string name="ee_nome_do_evento">Editar nome do evento</string>
+    <string name="ee_cidade">Editar Cidade</string>
+    <string name="ee_cidade_do_evento">Editar cidade do evento</string>
+    <string name="ee_local">Editar Local</string>
+    <string name="ee_local_do_evento">Editar local do evento</string>
+    <string name="ee_data">Editar Data</string>
+    <string name="ee_data_do_evento">dd/mm/aaaa</string>
+    <string name="ee_horario">Editar Horário</string>
+    <string name="ee_horario_do_evento">--:--</string>
+    <string name="ee_cancelar">Cancelar</string>
+    <string name="ee_cadastrar">Editar</string>
+    <string name="ee_vagas">Editar Vagas</string>
+    <string name="ee_total_de_vagas">Editar total de vagas</string>
+    <string name="ee_inscrever_me">Inscrever-me</string>
+
+    <string name="ie_nome">Nome</string>
+    <string name="ie_digite_nome">Digite aqui o nome</string>
+    <string name="ie_email">E-mail</string>
+    <string name="ie_digite_email">Digite aqui o e-mail</string>
+    <string name="ie_telefone">Telefone</string>
+    <string name="ie_digite_telefone">Digite aqui o telefone</string>
+    <string name="ie_conhecimento">Conhecimento sobre o tema?</string>
+    <string name="ie_inscrever_me">Inscrever-me</string>
+
+    <string name="nome_evento">Nome Evento</string>
+    <string name="cidade_dd_mm_yyyy">Cidade - dd/mm/yyyy</string>
+    <string name="local_hh_mm">Local - hh:mm</string>
+    <string name="total_de_vagas_xx">Total de vagas: XX</string>
+    <string name="voltar">Voltar</string>
+    <string name="editar_evento">Editar Evento</string>
+    <string name="editar_nome">Editar Nome</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="editar">Editar</string>
+    <string name="total_de_vagas">Total de vagas</string>
+    <string name="senha">Senha</string>
+    <string name="deletar_evento">Deletar Evento</string>
+</resources>

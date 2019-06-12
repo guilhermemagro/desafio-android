@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.MainActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+            <TextView
+                android:id="@+id/txtMatricula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="Matrícula"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edtMatricula"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ems="10"
+                android:hint="Matrícula everis"
+                android:inputType="number"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:text="E-mail"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ems="10"
+                android:hint="Email everis"
+                android:inputType="textEmailAddress" />
+
+            <TextView
+                android:id="@+id/txtSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/senha"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edtSenha"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ems="10"
+                android:hint="Digite aqui a senha"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/btnEntrar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/colorButtonGreen"
+                android:drawableLeft="@drawable/baseline_person_white_24dp"
+                android:fontFamily="sans-serif"
+                android:text="Entrar"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
