@@ -5,9 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.everis.guilherme.desafio1.DAO.UsuarioDAO;
@@ -56,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnEntrar = (Button) findViewById(R.id.btnEntrar);
-        edtMatricula = (EditText) findViewById(R.id.edtMatricula);
-        edtEmail = (EditText) findViewById(R.id.edtEmail);
-        edtSenha = (EditText) findViewById(R.id.edtSenha);
+        btnEntrar = findViewById(R.id.btnEntrar);
+        edtMatricula = findViewById(R.id.edtMatricula);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtSenha = findViewById(R.id.edtSenha);
 
         edtMatricula.addTextChangedListener(textWatcher);
         edtEmail.addTextChangedListener(textWatcher);

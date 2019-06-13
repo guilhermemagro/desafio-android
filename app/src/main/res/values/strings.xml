@@ -53,4 +53,12 @@
     <string name="total_de_vagas">Total de vagas</string>
     <string name="senha">Senha</string>
     <string name="deletar_evento">Deletar Evento</string>
+    
+    <string-array name="array_cidades">
+        <item>Uberlândia</item>
+        <item>São Paulo</item>
+        <item>Rio de Janeiro</item>
+        <item>Belo Horizonte</item>
+        <item>Goiânia</item>
+    </string-array>
 </resources>

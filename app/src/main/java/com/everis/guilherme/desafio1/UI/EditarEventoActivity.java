@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -22,7 +24,6 @@ import android.widget.Toast;
 import com.everis.guilherme.desafio1.DAO.EventoDAO;
 import com.everis.guilherme.desafio1.DAO.RegistroDAO;
 import com.everis.guilherme.desafio1.Domain.Evento;
-import com.everis.guilherme.desafio1.Mask.Mask;
 import com.everis.guilherme.desafio1.R;
 
 import java.util.Calendar;
@@ -34,7 +35,6 @@ public class EditarEventoActivity extends AppCompatActivity {
     TextView txtLocalEHorario;
     TextView txtQtdVagas;
     EditText editarNome;
-    EditText editarCidade;
     EditText editarLocal;
     TextView editarData;
     TextView editarHora;
@@ -48,6 +48,7 @@ public class EditarEventoActivity extends AppCompatActivity {
     Evento eventoSelec;
     AlertDialog alerta;
     DatePickerDialog.OnDateSetListener mDateSetListener;
+    Spinner spnCidade;
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -66,14 +67,13 @@ public class EditarEventoActivity extends AppCompatActivity {
 
     private void checarCamposVazios(){
         String sEvento = editarNome.getText().toString();
-        String sCidade = editarCidade.getText().toString();
         String sLocal = editarLocal.getText().toString();
         String sData = editarHora.getText().toString();
         String sHora = editarHora.getText().toString();
         String sVagas = editarVagas.getText().toString();
 
-        if(sEvento.equals("") || sCidade.equals("") || sLocal.equals("") ||
-                sData.equals("") || sHora.equals("") || sVagas.equals("")){
+        if(sEvento.equals("") || sLocal.equals("") || sData.equals("") ||
+                sHora.equals("") || sVagas.equals("")){
             btnEditar.setEnabled(false);
             btnEditar.setAlpha(.5f);
         } else {
@@ -87,12 +87,19 @@ public class EditarEventoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_evento);
 
+        eventoDAO = new EventoDAO(getBaseContext());
+        registroDAO = new RegistroDAO(getBaseContext());
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            idUsuarioAtivo = extras.getLong("idUsuarioAtivo");
+            eventoSelec = (Evento) extras.get("eventoSelec");
+        }
+
         txtNomeEvento = findViewById(R.id.txtEENomeEvento);
         txtCidadeEData = findViewById(R.id.txtEECidadeEData);
         txtLocalEHorario = findViewById(R.id.txtEELocalEHorario);
         txtQtdVagas = findViewById(R.id.txtEEQtdVagas);
         editarNome = findViewById(R.id.edtEEEvento);
-        editarCidade = findViewById(R.id.edtEECidade);
         editarLocal = findViewById(R.id.edtEELocal);
         editarData = findViewById(R.id.txtEEDataPicker);
         editarHora = findViewById(R.id.txtEEHoraPicker);
@@ -102,22 +109,21 @@ public class EditarEventoActivity extends AppCompatActivity {
         btnDeletar = findViewById(R.id.btnEEDeletarEvento);
 
         editarNome.addTextChangedListener(textWatcher);
-        editarCidade.addTextChangedListener(textWatcher);
         editarLocal.addTextChangedListener(textWatcher);
         editarData.addTextChangedListener(textWatcher);
         editarHora.addTextChangedListener(textWatcher);
         editarVagas.addTextChangedListener(textWatcher);
 
-        eventoDAO = new EventoDAO(getBaseContext());
-        registroDAO = new RegistroDAO(getBaseContext());
-        Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            idUsuarioAtivo = extras.getLong("idUsuarioAtivo");
-            eventoSelec = (Evento) extras.get("eventoSelec");
-        }
+        spnCidade = findViewById(R.id.spnEECidade);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.array_cidades, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnCidade.setAdapter(adapter);
+        int spinnerPosition = adapter.getPosition(eventoSelec.getCidade());
+        spnCidade.setSelection(spinnerPosition);
 
         editarNome.setText(eventoSelec.getNome());
-        editarCidade.setText(eventoSelec.getCidade());
+
         editarLocal.setText(eventoSelec.getLocal());
         editarData.setText(eventoSelec.getData());
         editarHora.setText(eventoSelec.getHorario());
@@ -140,9 +146,6 @@ public class EditarEventoActivity extends AppCompatActivity {
                 int ano = Integer.parseInt(String.valueOf(editarData.getText()).substring(6));
                 int mes = Integer.parseInt(String.valueOf(editarData.getText()).substring(3, 5)) - 1;
                 int dia = Integer.parseInt(String.valueOf(editarData.getText()).substring(0, 2));
-//                int ano = cal.get(Calendar.YEAR);
-//                int mes = cal.get(Calendar.MONTH);
-//                int dia = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
                         EditarEventoActivity.this,
@@ -169,8 +172,7 @@ public class EditarEventoActivity extends AppCompatActivity {
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = Integer.parseInt(String.valueOf(editarHora.getText()).substring(0, 2));
                 int minute = Integer.parseInt(String.valueOf(editarHora.getText()).substring(3));
-//                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-//                int minute = mcurrentTime.get(Calendar.MINUTE);
+
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(EditarEventoActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -200,7 +202,7 @@ public class EditarEventoActivity extends AppCompatActivity {
                 eventoAtual.setId(eventoSelec.getId());
                 eventoAtual.setNome(editarNome.getText().toString());
                 eventoAtual.setLocal(editarLocal.getText().toString());
-                eventoAtual.setCidade(editarCidade.getText().toString());
+                eventoAtual.setCidade(spnCidade.getSelectedItem().toString());
                 eventoAtual.setData(editarData.getText().toString());
                 eventoAtual.setHorario(editarHora.getText().toString());
                 eventoAtual.setVagas(Integer.parseInt(editarVagas.getText().toString()));

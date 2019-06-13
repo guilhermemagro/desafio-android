@@ -32,11 +32,11 @@ public class ParticipanteAdapter extends ArrayAdapter<Participante> {
 
         UsuarioDAO usuarioDAO = new UsuarioDAO(getContext());
 
-        TextView nomePart = (TextView) rowView.findViewById(R.id.txtPartNome);
-        TextView emailPart = (TextView) rowView.findViewById(R.id.txtPartEmail);
-        TextView telefonePart = (TextView) rowView.findViewById(R.id.txtPartTelefone);
-        TextView conhecePart = (TextView) rowView.findViewById(R.id.txtPartConhece);
-        TextView criadorPart = (TextView) rowView.findViewById(R.id.txtPartCriador);
+        TextView nomePart = rowView.findViewById(R.id.txtPartNome);
+        TextView emailPart = rowView.findViewById(R.id.txtPartEmail);
+        TextView telefonePart = rowView.findViewById(R.id.txtPartTelefone);
+        TextView conhecePart = rowView.findViewById(R.id.txtPartConhece);
+        TextView criadorPart = rowView.findViewById(R.id.txtPartCriador);
 
         String descEmail = "Email: " + elementos.get(position).getEmail();
         String descTel = "Tel.: " + elementos.get(position).getTelefone();

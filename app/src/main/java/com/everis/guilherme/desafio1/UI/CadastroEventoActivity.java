@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -29,13 +31,13 @@ public class CadastroEventoActivity extends AppCompatActivity {
     Button btnCECadastrar;
     Button btnCECancelar;
     EditText edtCEEvento;
-    EditText edtCECidade;
     EditText edtCELocal;
     TextView txtCEData;
     TextView txtCEHoraPicker;
     EditText edtCEVagas;
     private long idUsuarioAtivo;
     DatePickerDialog.OnDateSetListener mDateSetListener;
+    Spinner spinner;
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -54,14 +56,13 @@ public class CadastroEventoActivity extends AppCompatActivity {
 
     private void checarCamposVazios(){
         String sEvento = edtCEEvento.getText().toString();
-        String sCidade = edtCECidade.getText().toString();
         String sLocal = edtCELocal.getText().toString();
         String sData = txtCEData.getText().toString();
         String sHora = txtCEHoraPicker.getText().toString();
         String sVagas = edtCEVagas.getText().toString();
 
-        if(sEvento.equals("") || sCidade.equals("") || sLocal.equals("") ||
-            sData.equals("") || sHora.equals("") || sVagas.equals("")){
+        if(sEvento.equals("") || sLocal.equals("") || sData.equals("") ||
+                sHora.equals("") || sVagas.equals("")){
             btnCECadastrar.setEnabled(false);
             btnCECadastrar.setAlpha(.5f);
         } else {
@@ -81,7 +82,6 @@ public class CadastroEventoActivity extends AppCompatActivity {
         }
 
         edtCEEvento = findViewById(R.id.edtCEEvento);
-        edtCECidade = findViewById(R.id.edtCECidade);
         edtCELocal = findViewById(R.id.edtCELocal);
         txtCEData = findViewById(R.id.txtCEDataPicker);
         txtCEHoraPicker = findViewById(R.id.txtCEHoraPicker);
@@ -90,7 +90,6 @@ public class CadastroEventoActivity extends AppCompatActivity {
         btnCECancelar = findViewById(R.id.btnCECancelar);
 
         edtCEEvento.addTextChangedListener(textWatcher);
-        edtCECidade.addTextChangedListener(textWatcher);
         edtCELocal.addTextChangedListener(textWatcher);
         txtCEData.addTextChangedListener(textWatcher);
         txtCEHoraPicker.addTextChangedListener(textWatcher);
@@ -98,6 +97,12 @@ public class CadastroEventoActivity extends AppCompatActivity {
 
         btnCECadastrar.setEnabled(false);
         btnCECadastrar.setAlpha(.5f);
+
+        spinner = findViewById(R.id.spnCECidades);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.array_cidades, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
         txtCEData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +164,7 @@ public class CadastroEventoActivity extends AppCompatActivity {
                 EventoDAO eventoDAO = new EventoDAO(getBaseContext());
                 Evento evento;
                 String nomeEvento = edtCEEvento.getText().toString();
-                String cidade = edtCECidade.getText().toString();
+                String cidade = spinner.getSelectedItem().toString();
                 String local = edtCELocal.getText().toString();
                 String[] string = txtCEData.getText().toString().split("/");
                 String dataFormatada = string[2] + "-" + string[1] + "-" + string[0];

@@ -81,7 +81,7 @@
 
             <EditText
                 android:id="@+id/edtIENome"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                android:digits="aáâãbcçdeéêefghíîjklmnoóôõpqrstuúûvwxyzAÁÂÃBCÇDEÉÊFGHIÍÎJKLMNOÓÔÕPQRSTUÚÛVWXYZ "
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
