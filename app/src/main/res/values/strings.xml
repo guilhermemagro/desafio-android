@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Everis Events</string>
 
+    <string name="label_login">Login</string>
+    <string name="label_eventos">Eventos</string>
+    <string name="label_cadastro">Cadastro</string>
+    <string name="label_inscricao">Inscrição</string>
+    <string name="label_participantes">Participantes</string>
+    <string name="label_editar">Editar</string>
+
     <string name="ce_evento">Evento</string>
     <string name="ce_nome_do_evento">Nome do evento</string>
     <string name="ce_cidade">Cidade</string>
@@ -53,6 +60,7 @@
     <string name="total_de_vagas">Total de vagas</string>
     <string name="senha">Senha</string>
     <string name="deletar_evento">Deletar Evento</string>
+    <string name="retornar">Retornar</string>
     
     <string-array name="array_cidades">
         <item>Uberlândia</item>

@@ -9,18 +9,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.ListarParticipantesActivity"></activity>
-        <activity android:name=".UI.EditarEventoActivity" />
-        <activity android:name=".UI.InscricaoEventoActivity" />
-        <activity android:name=".UI.CadastroEventoActivity" />
-        <activity android:name=".UI.MainActivity">
+        <activity
+            android:name=".UI.ListarParticipantesActivity"
+            android:label="@string/label_participantes"
+            android:parentActivityName=".UI.ListActivity"
+            />
+        <activity
+            android:name=".UI.EditarEventoActivity"
+            android:label="@string/label_editar"
+            android:parentActivityName=".UI.ListarParticipantesActivity"
+            />
+        <activity
+            android:name=".UI.InscricaoEventoActivity"
+            android:label="@string/label_inscricao"
+            android:parentActivityName=".UI.ListActivity"
+            />
+        <activity
+            android:name=".UI.CadastroEventoActivity"
+            android:label="@string/label_cadastro"
+            android:parentActivityName=".UI.ListActivity"
+            />
+        <activity
+            android:name=".UI.MainActivity"
+            android:label="@string/label_login"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.ListActivity" />
+        <activity
+            android:name=".UI.ListActivity"
+            android:label="@string/label_eventos"
+            android:parentActivityName=".UI.MainActivity"
+            />
     </application>
 
 </manifest>

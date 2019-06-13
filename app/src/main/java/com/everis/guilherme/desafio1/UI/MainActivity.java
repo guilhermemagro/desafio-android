@@ -3,14 +3,12 @@ package com.everis.guilherme.desafio1.UI;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.everis.guilherme.desafio1.DAO.UsuarioDAO;
@@ -41,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void checarCamposVazios(){
-        String sMatricula = (String) edtMatricula.getText().toString();
-        String sEmail = (String) edtEmail.getText().toString();
-        String sSenha = (String) edtSenha.getText().toString();
+        String sMatricula = edtMatricula.getText().toString();
+        String sEmail = edtEmail.getText().toString();
+        String sSenha = edtSenha.getText().toString();
 
         if(sMatricula.equals("") || sEmail.equals("") || sSenha.equals("")){
             btnEntrar.setEnabled(false);
@@ -58,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         btnEntrar = findViewById(R.id.btnEntrar);
         edtMatricula = findViewById(R.id.edtMatricula);
