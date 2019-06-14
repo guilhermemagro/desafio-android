@@ -5,12 +5,14 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -82,6 +84,7 @@ public class CadastroEventoActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+        ab.setHomeButtonEnabled(true);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -191,5 +194,36 @@ public class CadastroEventoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+//    MÉTODO PARA UTILIZAR O UP NAVIGATION
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                Intent intent = new Intent(CadastroEventoActivity.this, ListActivity.class);
+//                intent.putExtra("idUsuarioAtivo", idUsuarioAtivo);
+//                startActivity(intent);
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(CadastroEventoActivity.this, ListActivity.class);
+        intent.putExtra("idUsuarioAtivo", idUsuarioAtivo);
+        startActivity(intent);
     }
 }

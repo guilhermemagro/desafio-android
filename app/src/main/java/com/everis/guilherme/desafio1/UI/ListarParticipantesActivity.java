@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -49,8 +50,10 @@ public class ListarParticipantesActivity extends AppCompatActivity {
 
         registroDAO = new RegistroDAO(getBaseContext());
         Bundle extras = getIntent().getExtras();
-        idUsuarioAtivo = extras.getLong("idUsuarioAtivo");
-        eventoSelec = (Evento) extras.get("eventoSelec");
+        if (extras != null) {
+            idUsuarioAtivo = extras.getLong("idUsuarioAtivo");
+            eventoSelec = (Evento) extras.get("eventoSelec");
+        }
 
         btnVoltar = findViewById(R.id.btnLPVoltar);
         btnEditar = findViewById(R.id.btnLPEditar);
@@ -137,5 +140,22 @@ public class ListarParticipantesActivity extends AppCompatActivity {
             listViewParticipantes.setAdapter(null);
             Toast.makeText(getApplicationContext(), "Não há participantes cadastrados neste evento!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ListarParticipantesActivity.this, ListActivity.class);
+        intent.putExtra("idUsuarioAtivo", idUsuarioAtivo);
+        startActivity(intent);
     }
 }

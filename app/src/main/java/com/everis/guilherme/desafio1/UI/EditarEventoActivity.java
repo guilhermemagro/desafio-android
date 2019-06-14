@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -215,6 +216,7 @@ public class EditarEventoActivity extends AppCompatActivity {
                 eventoAtual.setVagas(Integer.parseInt(editarVagas.getText().toString()));
                 eventoAtual.setImagem(R.drawable.logo_everis);   // HARDCODED!!!!
                 eventoAtual.setIdCriador(idUsuarioAtivo);
+                eventoAtual.setAtivo(true);
 
                 EventoDAO eventoDAO = new EventoDAO(getBaseContext());
                 if(eventoDAO.atualizarEvento(eventoAtual)){
@@ -255,5 +257,23 @@ public class EditarEventoActivity extends AppCompatActivity {
                 alerta.show();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intentCancelar = new Intent(EditarEventoActivity.this, ListarParticipantesActivity.class);
+        intentCancelar.putExtra("idUsuarioAtivo", idUsuarioAtivo);
+        intentCancelar.putExtra("eventoSelec", eventoSelec);
+        startActivity(intentCancelar);
     }
 }

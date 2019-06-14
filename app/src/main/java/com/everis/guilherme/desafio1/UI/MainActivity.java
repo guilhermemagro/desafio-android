@@ -7,8 +7,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.everis.guilherme.desafio1.DAO.UsuarioDAO;
@@ -59,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        ImageView logoEveris = findViewById(R.id.imgEverisEvents);
+        AlphaAnimation animation = new AlphaAnimation(0.1f, 1.0f);
+        animation.setDuration(2000);
+        logoEveris.startAnimation(animation);
 
         btnEntrar = findViewById(R.id.btnEntrar);
         edtMatricula = findViewById(R.id.edtMatricula);
