@@ -51,6 +51,7 @@
                 android:layout_marginRight="10dp"
                 android:ems="10"
                 android:hint="@string/ce_nome_do_evento"
+                android:maxLength="18"
                 android:inputType="textPersonName" />
 
             <TextView
@@ -95,6 +96,7 @@
                 android:layout_marginRight="10dp"
                 android:ems="10"
                 android:hint="@string/ce_local_do_evento"
+                android:maxLength="18"
                 android:inputType="textPersonName" />
 
             <TextView
@@ -164,6 +166,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:ems="10"
+                android:maxLength="4"
                 android:hint="@string/ce_total_de_vagas"
                 android:inputType="number" />
 

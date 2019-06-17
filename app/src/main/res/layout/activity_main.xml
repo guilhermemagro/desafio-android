@@ -70,6 +70,7 @@
                 android:ems="10"
                 android:hint="Matrícula everis"
                 android:inputType="number"
+                android:maxLength="6"
                 android:textSize="18sp" />
 
             <TextView
@@ -90,6 +91,7 @@
                 android:layout_marginEnd="10dp"
                 android:ems="10"
                 android:hint="Email everis"
+                android:maxLength="75"
                 android:inputType="textEmailAddress" />
 
             <TextView
@@ -110,6 +112,7 @@
                 android:layout_marginEnd="10dp"
                 android:ems="10"
                 android:hint="Digite aqui a senha"
+                android:maxLength="20"
                 android:inputType="textPassword" />
 
             <Button

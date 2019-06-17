@@ -98,6 +98,7 @@
                 android:layout_marginRight="10dp"
                 android:ems="10"
                 android:hint="@string/ie_digite_nome"
+                android:maxLength="36"
                 android:inputType="textPersonName" />
 
             <TextView
@@ -118,6 +119,7 @@
                 android:layout_marginRight="10dp"
                 android:ems="10"
                 android:hint="@string/ie_digite_email"
+                android:maxLength="36"
                 android:inputType="textEmailAddress" />
 
             <TextView
